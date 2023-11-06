@@ -24,8 +24,18 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             <h1><?php echo $producto['nombre']; ?></h1>
             <p><?php echo $producto['descripcion']; ?></p>
             <p>Precio: $<?php echo $producto['precio']; ?></p>
+
+            <h2>Realizar compra</h2>
+            <form action='procesar_compra.php' method='post'>
+                <input type='hidden' name='producto_id' value='<?php echo $producto_id; ?>'>
+                Nombre: <input type='text' name='nombre' required><br>
+                Correo electrónico: <input type='email' name='email' required><br>
+                Cantidad: <input type='number' name='cantidad' required><br>
+                <input type='submit' value='Comprar'>
+            </form>
+
             <br>
-            <a href="index.php">Volver a la tienda</a>
+            <a href='index.php'>Volver a la tienda</a>
         </body>
         </html>
         <?php
