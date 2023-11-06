@@ -1,48 +1,62 @@
 <?php
 include("config.php");
 
-// Verificar si se proporciona un ID válido en la URL
-if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-    $producto_id = $_GET['id'];
+// ... (código para obtener datos del producto desde la base de datos)
 
-    // Consulta para obtener el producto específico desde la base de datos
-    $sql = "SELECT * FROM productos WHERE id = $producto_id";
-    $result = $conn->query($sql);
-
-    // Verificar si hay resultados
-    if ($result->num_rows > 0) {
-        $producto = $result->fetch_assoc();
-        ?>
-        <!DOCTYPE html>
-        <html lang="es">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Detalles del Producto</title>
-        </head>
-        <body>
-            <h1><?php echo $producto['nombre']; ?></h1>
-            <p><?php echo $producto['descripcion']; ?></p>
-            <p>Precio: $<?php echo $producto['precio']; ?></p>
-
-            <h2>Realizar compra</h2>
-            <form action='procesar_compra.php' method='post'>
-                <input type='hidden' name='producto_id' value='<?php echo $producto_id; ?>'>
-                Nombre: <input type='text' name='nombre' required><br>
-                Correo electrónico: <input type='email' name='email' required><br>
-                Cantidad: <input type='number' name='cantidad' required><br>
-                <input type='submit' value='Comprar'>
-            </form>
-
-            <br>
-            <a href='index.php'>Volver a la tienda</a>
-        </body>
-        </html>
-        <?php
-    } else {
-        echo "Producto no encontrado.";
-    }
-} else {
-    echo "ID de producto no válido.";
-}
 ?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Metatags, título y estilos aquí -->
+</head>
+<body>
+    <!-- Contenido de los detalles del producto -->
+
+    <h2>Realizar compra</h2>
+    <form id="formularioCompra">
+        <!-- Campos del formulario -->
+        <input type='hidden' id='producto_id' value='<?php echo $producto_id; ?>'>
+        Nombre: <input type='text' id='nombre' required><br>
+        Correo electrónico: <input type='email' id='email' required><br>
+        Cantidad: <input type='number' id='cantidad' required><br>
+        <input type='submit' value='Comprar'>
+    </form>
+
+    <br>
+    <a href='index.php'>Volver a la tienda</a>
+
+    <script>
+        document.getElementById("formularioCompra").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            var producto_id = document.getElementById("producto_id").value;
+            var nombre = document.getElementById("nombre").value;
+            var email = document.getElementById("email").value;
+            var cantidad = document.getElementById("cantidad").value;
+
+            // Realizar la solicitud AJAX usando el método PUT
+            fetch('procesar_compra.php', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    producto_id: producto_id,
+                    nombre: nombre,
+                    email: email,
+                    cantidad: cantidad
+                })
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log(data);
+                // Manejar la respuesta del servidor si es necesario
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
