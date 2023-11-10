@@ -1,6 +1,16 @@
 <?php
 include("config.php");
 
+// Verificar si la solicitud es OPTIONS
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    // Respondemos a la solicitud OPTIONS con los encabezados necesarios para CORS
+    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+    header('Access-Control-Allow-Headers: Content-Type');
+    header('Access-Control-Max-Age: 86400'); // 1 día
+    exit;
+}
+
 // Consulta para obtener productos desde la base de datos
 $sql = "SELECT * FROM productos";
 $result = $conn->query($sql);
