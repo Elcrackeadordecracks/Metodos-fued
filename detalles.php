@@ -3,8 +3,34 @@ include("config.php");
 
 // ... (código para obtener datos del producto desde la base de datos)
 
-?>
+// Verificar si la solicitud es HEAD
+if ($_SERVER["REQUEST_METHOD"] === "HEAD") {
+    // Verificar si se proporciona un ID válido en la URL
+    if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+        $producto_id = $_GET['id'];
 
+        // Consulta para obtener el producto específico desde la base de datos
+        $sql = "SELECT * FROM productos WHERE id = $producto_id";
+        $result = $conn->query($sql);
+
+        // Verificar si hay resultados
+        if ($result->num_rows > 0) {
+            $producto = $result->fetch_assoc();
+
+            // Enviar encabezados relevantes sin cuerpo de respuesta
+            header("Producto-Nombre: " . $producto['nombre']);
+            header("Producto-Precio: $" . $producto['precio']);
+        } else {
+            echo "Producto no encontrado.";
+        }
+    } else {
+        echo "ID de producto no válido.";
+    }
+} else {
+    // ... (resto del código para manejar las solicitudes GET)
+    // Este código maneja las solicitudes GET, pero puedes ajustarlo según tus necesidades.
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -26,37 +52,6 @@ include("config.php");
     <br>
     <a href='index.php'>Volver a la tienda</a>
 
-    <script>
-        document.getElementById("formularioCompra").addEventListener("submit", function(event) {
-            event.preventDefault();
-
-            var producto_id = document.getElementById("producto_id").value;
-            var nombre = document.getElementById("nombre").value;
-            var email = document.getElementById("email").value;
-            var cantidad = document.getElementById("cantidad").value;
-
-            // Realizar la solicitud AJAX usando el método PUT
-            fetch('procesar_compra.php', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    producto_id: producto_id,
-                    nombre: nombre,
-                    email: email,
-                    cantidad: cantidad
-                })
-            })
-            .then(response => response.text())
-            .then(data => {
-                console.log(data);
-                // Manejar la respuesta del servidor si es necesario
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        });
-    </script>
+    <!-- ... (resto del código JavaScript) -->
 </body>
 </html>
