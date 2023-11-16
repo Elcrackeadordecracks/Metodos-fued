@@ -1,0 +1,105 @@
+body {
+    font-family: 'Arial', sans-serif;
+    /* Cambia según tus preferencias */
+}
+
+header {
+    background: linear-gradient(#040f13, #000000);
+    padding: 10px;
+}
+
+.menu {
+    display: flex;
+    justify-content: flex-end;
+    /* Coloca el menú a la derecha */
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+}
+
+.imagen-relojes {
+    background-image: url('https://img.freepik.com/fotos-premium/dos-relojes-estan-sentados-suelo-cuales-dice-hora_853677-3635.jpg?w=1060');
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 30vh;
+    /* Ajusta según sea necesario, por ejemplo, 30% de la altura de la ventana */
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    margin-bottom: 5px;
+    /* Ajusta según sea necesario */
+}
+
+.productos-centrados {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.producto {
+    width: 300px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 20px;
+    text-align: center;
+}
+
+
+/*Detalles.php*/
+
+body {
+    font-family: 'Arial', sans-serif;
+    /* Otros estilos generales */
+}
+
+header {
+    background: linear-gradient(#040f13, #000000);
+    padding: 10px;
+}
+
+.menu {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+}
+
+.imagen-relojes {
+    background-image: url('https://img.freepik.com/fotos-premium/dos-relojes-estan-sentados-suelo-cuales-dice-hora_853677-3635.jpg?w=1060');
+    background-size: cover;
+    height: 300px;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.productos-centrados {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.producto {
+    width: 300px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 20px;
+    text-align: center;
+}
